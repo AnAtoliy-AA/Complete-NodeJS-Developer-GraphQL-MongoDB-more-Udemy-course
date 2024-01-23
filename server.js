@@ -6,6 +6,17 @@ const PORT = 3000;
 
 const friends = [{ id: 0, name: "some name" }, { id: 1, name: "another name" }]
 
+app.use((req, res, next) => {
+  const startTime = Date.now();
+ 
+  next();
+
+  const endTime = Date.now();
+  const delta = endTime - startTime
+
+  console.log(`${req.method} ${req.url} executed ${delta} ms`)
+})
+
 app.get("/friends", (req, res) => {
   res.json(friends);
 });
