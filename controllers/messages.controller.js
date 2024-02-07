@@ -1,8 +1,12 @@
 const path = require('path');
 
 function getMessages(req, res) {
-  res.sendFile(path.join(__dirname, '..', 'public', 'images', 'mountain.jpg'))
+  // res.sendFile(path.join(__dirname, '..', 'public', 'images', 'mountain.jpg'))
   // res.send("<ul><li>Hello there!</li></ul>");
+  res.render('messages', {
+    title: 'Messages',
+    friend: 'Some friend',
+  })
 }
 
 function postMessage(req, res) {
