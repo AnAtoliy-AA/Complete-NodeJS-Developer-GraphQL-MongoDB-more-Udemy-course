@@ -59,37 +59,33 @@ const AppLayout = props => {
   } = useLaunches(onSuccessSound, onAbortSound, onFailureSound);
 
   const planets = usePlanets();
-  
+
   return <div className={classes.content}>
     <Header onNav={animateFrame} />
     <Centered className={classes.centered}>
-      <Frame animate 
-        show={frameVisible} 
-        corners={4} 
-        style={{visibility: frameVisible ? "visible" : "hidden"}}>
+      <Frame animate
+        show={frameVisible}
+        corners={4}
+        style={{ visibility: frameVisible ? "visible" : "hidden" }}>
         {anim => (
-          <div style={{padding: "20px"}}>
-          <Routes>
-            <Route exact path="/" element={      <Launch 
+          <div style={{ padding: "20px" }}>
+            <Routes>
+              <Route exact path="/" element={<Launch
                 entered={anim.entered}
                 planets={planets}
                 submitLaunch={submitLaunch}
                 isPendingLaunch={isPendingLaunch} />} />
-        
-            <Route exact path="/launch" element={              <Launch
+              <Route exact path="/launch" element={<Launch
                 entered={anim.entered}
                 planets={planets}
                 submitLaunch={submitLaunch}
-                isPendingLaunch={isPendingLaunch} />}/>
-
-
-            <Route exact path="/upcoming" element={              <Upcoming
+                isPendingLaunch={isPendingLaunch} />} />
+              <Route exact path="/upcoming" element={<Upcoming
                 entered={anim.entered}
                 launches={launches}
                 abortLaunch={abortLaunch} />} />
-            <Route exact path="/history" element={<History entered={anim.entered} launches={launches} />}/>
-              
-          </Routes>
+              <Route exact path="/history" element={<History entered={anim.entered} launches={launches} />} />
+            </Routes>
           </div>
         )}
       </Frame>
