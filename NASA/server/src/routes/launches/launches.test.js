@@ -1,17 +1,19 @@
-describe("Test GET /launches", () => {
-  test("It should respond with 200 success", () => {
-    const response = 200;
+const request = require("supertest");
+const app = require("../../app");
 
-    expect(response).toBe(200);
+describe("Test GET /launches", () => {
+  test("It should respond with 200 success", async () => {
+    const response = await request(app)
+      .get("/launches")
+      .expect("Content-Type", "application/json; charset=utf-8")
+      .expect(200);
+
+    expect(response.statusCode).toBe(200);
   });
 });
 
 describe("Test POST /launch", () => {
-  test("It should respond with 200 success", () => {
-    const response = 200;
-
-    expect(response).toBe(200);
-  });
+  test("It should respond with 200 success", () => {});
 
   test("It should catch missing required properties", () => {});
 
