@@ -1,0 +1,20 @@
+{
+  "name": "performance-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "pm2 start server.js -i max",
+    "stop": "pm2 stop server",
+    "reload": "pm2 reload server",
+    "delete": "pm2 delete server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "pm2": "^5.3.1"
+  }
+}
