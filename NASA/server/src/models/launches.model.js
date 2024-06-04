@@ -2,6 +2,17 @@ const launches = require("./launches.mongo");
 
 let latestFlightNumber = 100;
 
+const launch = {
+  flightNumber: latestFlightNumber,
+  mission: 'Kepler Exploration X',
+  rocket: 'Explorer IS1',
+  launchDate: new Date('December 27, 2030'),
+  target: 'Kepler-442 b',
+  customers: ['ZTM', 'NASA'],
+  upcoming: true,
+  success: true,
+};
+
 function isLaunchWithIdExist(launchId) {
   return launches.has(launchId);
 }
@@ -9,6 +20,16 @@ function isLaunchWithIdExist(launchId) {
 async function getAllLaunches() {
   return await launches.find({});
 }
+
+async function saveLaunch(launch) {
+  await launches.updateOne({
+    flightNumber: launch.flightNumber,
+  }, launch, {
+    upsert: true,
+  })
+}
+
+saveLaunch(launch)
 
 function addNewLaunch(launch) {
   latestFlightNumber++;
