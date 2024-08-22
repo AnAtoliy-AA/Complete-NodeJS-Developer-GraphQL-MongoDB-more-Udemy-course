@@ -14,14 +14,14 @@ const launch = {
   success: true,
 };
 
-function isLaunchWithIdExist(launchId) {
-  return launches.has(launchId);
+async function isLaunchWithIdExist(launchId) {
+  return await launches.findOne({ flightNumber: launchId });
 }
 
 async function getLatestFlightNumber() {
   const latestLaunch = await launches.findOne().sort("-flightNumber");
 
-  return latestLaunch ? latestLaunch.flightNumber : DEFAULT_FLIGHT_NUMBER
+  return latestLaunch ? latestLaunch.flightNumber : DEFAULT_FLIGHT_NUMBER;
 }
 
 async function getAllLaunches() {
@@ -57,25 +57,30 @@ async function saveLaunch(launch) {
 saveLaunch(launch);
 
 async function scheduleNewLaunch(launch) {
-  const newFlightNumber = await getLatestFlightNumber() + 1;
+  const newFlightNumber = (await getLatestFlightNumber()) + 1;
 
   const newLaunch = Object.assign(launch, {
     customer: ["Zero To Mastery, NASA"],
     upcoming: true,
     success: true,
     flightNumber: newFlightNumber,
-  })
+  });
 
   await saveLaunch(newLaunch);
 }
 
-function abortLaunchById(launchId) {
-  const aborted = launches.get(launchId);
+async function abortLaunchById(launchId) {
+  const aborted = await launches.updateOne(
+    {
+      flightNumber: launchId,
+    },
+    {
+      upcoming: false,
+      success: false,
+    }
+  );
 
-  aborted.upcoming = false;
-  aborted.success = false;
-
-  return aborted;
+  return aborted.modifiedCount === 1;
 }
 
 module.exports = {
