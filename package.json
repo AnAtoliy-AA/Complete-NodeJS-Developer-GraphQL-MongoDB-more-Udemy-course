@@ -1,0 +1,11 @@
+{
+  "name": "security-example",
+  "version": "1.0.0",
+  "description": "complete-nodejs-developer-graphql-mongodb-more-udemy-course",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "AnAtoliy-AA",
+  "license": "ISC"
+}
