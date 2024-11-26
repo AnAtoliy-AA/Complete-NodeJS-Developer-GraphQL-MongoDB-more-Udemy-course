@@ -16,9 +16,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20'
-      - name: Install dependencies
-        run: npm install
-        working-directory: NASA
       - name: Install server dependencies
         run: npm run install-server
         working-directory: NASA
