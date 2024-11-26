@@ -17,8 +17,11 @@ jobs:
         with:
           node-version: '20'
       - name: Install dependencies
-        run: npm run install
+        run: npm install
         working-directory: NASA
-      - name: Build client
-        run: npm run build --prefix client
+      - name: Install server dependencies
+        run: npm run install-server
+        working-directory: NASA
+      - name: Install client dependencies
+        run: npm run install-client
         working-directory: NASA
