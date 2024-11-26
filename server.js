@@ -7,6 +7,8 @@ const passport = require("passport");
 
 const { Strategy } = require("passport-google-oauth20");
 
+const cookieSession = require("cookie-session");
+
 require("dotenv").config();
 
 const PORT = 3000;
@@ -14,6 +16,8 @@ const PORT = 3000;
 const config = {
   CLIENT_ID: process.env.CLIENT_ID,
   CLIENT_SECRET: process.env.CLIENT_SECRET,
+  COOKIE_KEY_1: process.env.COOKIE_KEY_1,
+  COOKIE_KEY_2: process.env.COOKIE_KEY_2,
 };
 
 const callbackURL = "/auth/google/callback";
@@ -35,6 +39,14 @@ passport.use(new Strategy(AUTH_OPTIONS, verifyCallback));
 const app = express();
 
 app.use(helmet());
+
+app.use(
+  cookieSession({
+    name: "session",
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: [config.COOKIE_KEY_1, config.COOKIE_KEY_2],
+  })
+);
 
 app.use(passport.initialize());
 
@@ -93,5 +105,5 @@ https
     app
   )
   .listen(PORT, () => {
-    console.log(`listening on port ${PORT}`);
+    console.log(`listening on port https://localhost:${PORT}`);
   });
